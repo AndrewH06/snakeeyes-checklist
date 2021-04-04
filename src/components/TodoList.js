@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Todo from "./Todo";
 import TodoForm from "./TodoForm";
+import { Context } from "./Context";
 
 function TodoList() {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(["example"]);
 
   const handleTodos = (todo) => {
     const newTodos = [todo, ...todos];
@@ -34,14 +35,16 @@ function TodoList() {
 
   return (
     <div>
-      <h1>SnakeEyes Checklist</h1>
-      <TodoForm onSubmit={handleTodos} />
-      <Todo
-        todo={todos}
-        completeTodo={completeTodo}
-        removeTodo={removeTodo}
-        updateTodo={updateTodo}
-      />
+      <Context.Provider value={{ todos }}>
+        <h1>SnakeEyes Checklist</h1>
+        <TodoForm onSubmit={handleTodos} />
+        <Todo
+          // todo={todos}
+          completeTodo={completeTodo}
+          removeTodo={removeTodo}
+          updateTodo={updateTodo}
+        />
+      </Context.Provider>
     </div>
   );
 }
