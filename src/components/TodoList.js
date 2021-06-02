@@ -28,6 +28,9 @@ function TodoList() {
   };
 
   const updateTodo = (todoId, newValue) => {
+    if (!newValue.text || /^\s*$/.test(newValue.text)) {
+      return;
+    }
     setTodos((prev) =>
       prev.map((item) => (item.id === todoId ? newValue : item))
     );
@@ -36,7 +39,7 @@ function TodoList() {
   return (
     <div>
       <Context.Provider value={{ todos }}>
-        <h1>SnakeEyes Checklist</h1>
+        <h1>AP Prep Checklist</h1>
         <TodoForm onSubmit={handleTodos} />
         <Todo
           // todo={todos}

@@ -1,17 +1,29 @@
 import React, { useState } from "react";
-// import TodoForm from "./TodoForm";
+import TodoForm from "./TodoForm";
 import { useContext } from "react";
 import { Context } from "./Context";
 import { VscChromeClose } from "react-icons/vsc";
 import { HiPencil } from "react-icons/hi";
 
-function Todo({ completeTodo, removeTodo }) {
+function Todo({ completeTodo, removeTodo, updateTodo }) {
   const { todos } = useContext(Context);
   const [edit, setEdit] = useState({
     id: null,
     value: "",
   });
-  console.log(todos);
+
+  const submitUpdate = (value) => {
+    updateTodo(edit.id, value);
+    setEdit({
+      id: null,
+      value: "",
+    });
+  };
+
+  if (edit.id) {
+    return <TodoForm edit={edit} onSubmit={submitUpdate} />;
+  }
+
   return (
     <div>
       {todos.length !== 0 ? (
@@ -40,7 +52,7 @@ function Todo({ completeTodo, removeTodo }) {
           })}
         </>
       ) : (
-        <h1>todos.length === 0</h1>
+        <h1>There isn't any todos, add some!</h1>
       )}
     </div>
   );
